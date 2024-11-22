@@ -187,3 +187,254 @@
 }[0m
 [21:06:06.495] [34mINFO:[0m [36mno migrations to apply[0m [37m{}[0m
 [21:06:06.495] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[22:57:57.348] INFO: no migrations to apply {}
+[22:57:57.378] INFO: migrations applied successfully {}
+[22:37:37.028] [34mINFO:[0m [36mno migrations to apply[0m [37m{}[0m
+[22:37:37.058] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+{"time":"2024-11-22T22:52:37.0603048+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:52:37.0603048+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":5000000000}}
+[22:53:53.044] INFO: no migrations to apply {}
+[22:53:53.191] INFO: migrations applied successfully {}
+{"time":"2024-11-22T22:53:53.1917034+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:53:53.1922142+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":5000000000}}
+[22:21:21.445] INFO: no migrations to apply {}
+[22:21:21.496] INFO: migrations applied successfully {}
+{"time":"2024-11-22T22:54:21.496727+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:54:45.0695915+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":5000000000}}
+{"time":"2024-11-22T22:54:45.0697463+03:00","level":"ERROR","msg":"unable to connect to postgres pool","initializing postgres pool":{"error":"context deadline exceeded"}}
+[22:45:45.069] ERROR: postgres pool failed {
+  "error": "context deadline exceeded"
+}
+[22:35:35.871] INFO: no migrations to apply {}
+[22:35:35.900] INFO: migrations applied successfully {}
+{"time":"2024-11-22T22:55:35.9011008+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:55:35.9011201+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":5000000000000000000}}
+[22:15:15.172] INFO: no migrations to apply {}
+[22:15:15.208] INFO: migrations applied successfully {}
+{"time":"2024-11-22T22:56:15.2091991+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:56:35.7306696+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":5000000000000000000}}
+{"time":"2024-11-22T22:56:35.731208+03:00","level":"ERROR","msg":"unable to connect to postgres pool","initializing postgres pool":{"error":"context deadline exceeded"}}
+[22:35:35.731] ERROR: postgres pool failed {
+  "error": "context deadline exceeded"
+}
+[22:51:51.356] INFO: no migrations to apply {}
+[22:51:51.385] INFO: migrations applied successfully {}
+{"time":"2024-11-22T22:56:51.3856723+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:56:51.3856723+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":2000000000000000000}}
+[22:04:04.861] INFO: no migrations to apply {}
+[22:04:04.891] INFO: migrations applied successfully {}
+{"time":"2024-11-22T22:57:04.8923399+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:57:04.8923399+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":2000000000}}
+[22:24:24.611] INFO: no migrations to apply {}
+[22:24:24.641] INFO: migrations applied successfully {}
+{"time":"2024-11-22T22:57:24.6419467+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T22:57:24.6425043+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":2}}
+[23:06:06.483] [34mINFO:[0m [36mno migrations to apply[0m [37m{}[0m
+[23:06:06.516] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+{"time":"2024-11-22T23:03:06.5164541+03:00","level":"INFO","msg":"connection info","initializing postgres pool":{"Host":"localhost:5432","dbName":"/music_library"}}
+{"time":"2024-11-22T23:03:06.5169963+03:00","level":"INFO","msg":"successfully parsed config","initializing postgres pool":{"max idle time":2}}
+[23:57:57.677] [34mINFO:[0m [36mno migrations to apply[0m [37m{}[0m
+[23:57:57.708] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[23:57:57.708] [34mINFO:[0m [36mconnection info[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library"
+}[0m
+[23:57:57.710] [34mINFO:[0m [36msuccessfully parsed config[0m [37m{
+  "max idle time": 2
+}[0m
+[23:08:08.177] [34mINFO:[0m [36mno migrations to apply[0m [37m{}[0m
+[23:08:08.207] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[23:08:08.269] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "/music_library": "connection configuration",
+  "connection info": "Host",
+  "localhost:5432": "dbName",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:03:03.404] [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:03:03.432] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+{"time":"2024-11-23T00:22:03.4892416+03:00","level":"INFO","source":{"function":"github.com/vlks-dev/EffectiveMobileGoTest/database.NewPostgresPool","file":"D:/go-projects/EffectiveMobileGoTest/database/postgres.go","line":50},"msg":"successfully connected to postgres pool","connection":{"Host":"localhost:5432","dbName":"/music_library","max idle time":2,"max conn lifetime":10}}
+[00:36:36.447] [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:36:36.476] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:36:36.527] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:24:24.524] [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:24:24.556] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:24:24.612] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:01:01.990] source [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:02:02.019] source [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:02:02.081] source [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:09:09.298] &{  0} [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:09:09.327] &{  0} [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:09:09.390] &{  0} [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:28:28.711]  [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:28:28.739]  [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:28:28.791]  [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:16:16.530] /dev/stdout [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:16:16.559] /dev/stdout [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:16:16.613] /dev/stdout [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:02:02.425]  [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:02:02.452]  [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:02:02.507]  [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:26:26.463]  [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:26:26.494]  [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:26:26.558]  [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:58:58.771] [33mWARN:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:58:58.800] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:58:58.855] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+{"time":"2024-11-23T00:51:43.8192322+03:00","level":"INFO","msg":"no change"}
+[00:43:43.850] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:43:43.908] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:08:08.880] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:08:08.965] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:29:29.344] [35mDEBUG:[0m [36mconfig and logger initialized[0m [37m{
+  "configuration": {
+    "DBHost": "localhost",
+    "DBPort": "5432",
+    "DBUser": "vlks",
+    "DBPassword": "secret",
+    "DBName": "music_library",
+    "DBMaxIdle": 2,
+    "DBMaxConn": 10,
+    "APIBaseURL": "https://api.example.com",
+    "ServerPort": "8080"
+  }
+}[0m
+[00:29:29.468] [35mDEBUG:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:29:29.468] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:29:29.525] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[00:13:13.622] [35mDEBUG:[0m [36mconfig and logger initialized[0m [37m{
+  "configuration": {
+    "DBHost": "localhost",
+    "DBPort": "5432",
+    "DBUser": "vlks",
+    "DBPassword": "secret",
+    "DBName": "music_library",
+    "DBMaxIdle": 2,
+    "DBMaxConn": 10,
+    "APIBaseURL": "https://api.example.com",
+    "ServerPort": "8080"
+  }
+}[0m
+[00:13:13.736] [35mDEBUG:[0m [36mno migrations to apply[0m [37m{}[0m
+[00:13:13.736] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{}[0m
+[00:13:13.795] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[01:50:50.135] [35mDEBUG:[0m [36mconfig and logger initialized[0m [37m{
+  "configuration": {
+    "DBHost": "localhost",
+    "DBPort": "5432",
+    "DBUser": "vlks",
+    "DBPassword": "secret",
+    "DBName": "music_library",
+    "DBMaxIdle": 2,
+    "DBMaxConn": 10,
+    "APIBaseURL": "https://api.example.com",
+    "ServerPort": "8080"
+  }
+}[0m
+[01:50:50.248] [35mDEBUG:[0m [36mno migrations to apply[0m [37m{}[0m
+[01:50:50.248] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{
+  "version": 20241121185515
+}[0m
+[01:50:50.308] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[01:41:41.250] [35mDEBUG:[0m [36mconfig and logger initialized[0m [37m{
+  "configuration": {
+    "DBHost": "localhost",
+    "DBPort": "5432",
+    "DBUser": "vlks",
+    "DBPassword": "secret",
+    "DBName": "music_library",
+    "DBMaxIdle": 2,
+    "DBMaxConn": 10,
+    "APIBaseURL": "https://api.example.com",
+    "ServerPort": "8080"
+  }
+}[0m
+[01:41:41.372] [35mDEBUG:[0m [36mno migrations to apply[0m [37m{}[0m
+[01:41:41.372] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{
+  "version": 20241121185515
+}[0m
+[01:41:41.435] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m
+[01:03:03.977] [34mINFO:[0m [36mmigrations applied successfully[0m [37m{
+  "version": 20241121185515
+}[0m
+[01:04:04.059] [34mINFO:[0m [36msuccessfully connected to postgres pool[0m [37m{
+  "Host": "localhost:5432",
+  "dbName": "/music_library",
+  "max conn lifetime": 10,
+  "max idle time": 2
+}[0m

@@ -55,7 +55,7 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 
 	m, err := migrate.NewWithDatabaseInstance(
 		"file://migrations/pgx_migrations/",
-		"music_library",
+		config.DBName,
 		instance,
 	)
 	if err != nil {
@@ -70,16 +70,16 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 	}()
 
 	errCh := make(chan error, 1)
+	version, isDirty, _ := m.Version()
 
 	go func() {
 		if err := m.Up(); err != nil {
 			if errors.Is(err, migrate.ErrNoChange) {
-				logger.Info("no migrations to apply")
+				logger.Debug("no migrations to apply")
 				errCh <- nil
 				return
 			}
 
-			version, isDirty, _ := m.Version()
 			logger.Error("failed to apply migrations", "error", err.Error(), "version", version, "isDirty", isDirty)
 
 			if isDirty {
@@ -121,7 +121,10 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 		if err != nil {
 			return err
 		}
-		logger.Info("migrations applied successfully")
+		logger.Info(
+			"migrations applied successfully",
+			"version", version,
+		)
 		return nil
 	}
 }
