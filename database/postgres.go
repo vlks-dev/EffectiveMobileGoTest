@@ -3,10 +3,11 @@ package database
 import (
 	"context"
 	"fmt"
-	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/vlks-dev/EffectiveMobileGoTest/config"
+	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
 	"log/slog"
 	"net/url"
+	"time"
 )
 
 type PostgresPool struct {
@@ -34,10 +35,10 @@ func NewPostgresPool(config *config.Config, logger *slog.Logger, ctx context.Con
 		)
 		return nil, err
 	}
-	poolConfig.MaxConnIdleTime = config.DBMaxIdle
-	poolConfig.MaxConnLifetime = config.DBMaxConn
+	poolConfig.MaxConnIdleTime = config.DBMaxIdle * time.Second
+	poolConfig.MaxConnLifetime = config.DBMaxConn * time.Second
 
-	pool, err := pgxpool.ConnectConfig(ctx, poolConfig)
+	pool, err := pgxpool.NewWithConfig(ctx, poolConfig)
 	if err != nil {
 		logger.Error("unable to connect to postgres pool", "error", err.Error())
 		return nil, err
@@ -50,8 +51,8 @@ func NewPostgresPool(config *config.Config, logger *slog.Logger, ctx context.Con
 	logger.Info("successfully connected to postgres pool",
 		"Host", parseUrl.Host,
 		"dbName", parseUrl.Path,
-		"max idle time", poolConfig.MaxConnIdleTime,
-		"max conn lifetime", poolConfig.MaxConnLifetime,
+		"max idle time", poolConfig.MaxConnIdleTime/time.Second,
+		"max conn lifetime", poolConfig.MaxConnLifetime/time.Second,
 	)
 
 	return pool, nil

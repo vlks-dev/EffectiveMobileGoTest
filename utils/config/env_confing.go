@@ -19,6 +19,7 @@ type Config struct {
 	DBMaxConn  time.Duration
 	APIBaseURL string
 	ServerPort string
+	ServerHost string
 }
 
 func LoadConfig() *Config {
@@ -31,7 +32,7 @@ func LoadConfig() *Config {
 	if err != nil {
 		panic(err)
 	}
-	dbmaxconn, err := strconv.Atoi(os.Getenv("DB_MAX_CONN"))
+	dbmaxconn, err := strconv.Atoi(os.Getenv("DB_MAX_CONN_LIFE"))
 	if err != nil {
 		panic(err)
 	}
@@ -46,5 +47,6 @@ func LoadConfig() *Config {
 		DBMaxConn:  time.Duration(dbmaxconn),
 		APIBaseURL: os.Getenv("API_BASE_URL"),
 		ServerPort: os.Getenv("SERVER_PORT"),
+		ServerHost: os.Getenv("SERVER_HOST"),
 	}
 }
