@@ -1,0 +1,32 @@
+### GET request to example server
+GET http://localhost:8080/api/v1/songs
+
+###
+
+GET http://localhost:8080/api/v1/songs/4/text?page=1
+
+###
+
+POST http://localhost:8080/api/v1/songs
+Content-Type: application/json
+
+{
+  "group": "Muse",
+  "song": "Supermassive Black Hole"
+}
+
+###
+
+PATCH http://localhost:8080/api/v1/songs/4
+Content-Type: application/json
+
+{
+  "group": "string",
+  "link": "http",
+  "song": "DingDong",
+  "text": "dasd"
+}
+
+###
+
+DELETE http://localhost:8080/api/v1/songs/2

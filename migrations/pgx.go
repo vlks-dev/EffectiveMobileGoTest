@@ -8,7 +8,7 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/pgx/v5"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/vlks-dev/EffectiveMobileGoTest/config"
+	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
 	"log/slog"
 	"os"
 	"os/signal"
