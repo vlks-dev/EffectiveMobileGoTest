@@ -5,15 +5,16 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/pgx/v5"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
 	"log/slog"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/pgx/v5"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
 )
 
 func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Config) error {
@@ -30,7 +31,8 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 
 	db, err := sql.Open("pgx", connURL)
 	if err != nil {
-		logger.Error("failed to get postgres instance", "error", err.Error())
+		logger.Error("failed to get postgres instance",
+			"connectionURL", connURL)
 		return err
 	}
 	defer func() {
@@ -39,8 +41,8 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 		}
 	}()
 
-	if err := db.PingContext(migrationCtx); err != nil {
-		logger.Error("failed to ping postgres instance", "error", err.Error())
+	if err := db.PingContext(migrationCtx); err != nil  {
+		logger.Error("failed to ping postgres instance", "error", err)
 		return err
 	}
 
@@ -73,15 +75,15 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 	version, isDirty, _ := m.Version()
 
 	go func() {
-		if err := m.Up(); err != nil {
-			if errors.Is(err, migrate.ErrNoChange) {
-				logger.Debug("no migrations to apply")
-				errCh <- nil
-				return
-			}
+		err := m.Up()
 
+		if errors.Is(err, migrate.ErrNoChange) {
+			logger.Debug("no migrations to apply")
+			errCh <- nil
+			return
+		}
+		if err != nil {
 			logger.Error("failed to apply migrations", "error", err.Error(), "version", version, "isDirty", isDirty)
-
 			if isDirty {
 				logger.Debug("forcing migration cleanup")
 				if forceErr := m.Force(int(version)); forceErr != nil {
@@ -112,10 +114,6 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 	select {
 	case <-ctx.Done():
 		logger.Warn("migration interrupted by shutdown signal")
-		sourceErr, dbErr := m.Close()
-		if sourceErr != nil || dbErr != nil {
-			logger.Error("failed to close migrate instance", "sourceErr", sourceErr, "dbErr", dbErr)
-		}
 		return ctx.Err()
 	case err := <-errCh:
 		if err != nil {
