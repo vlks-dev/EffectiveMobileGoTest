@@ -2,36 +2,32 @@ package migrations
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
 	"log/slog"
 	"os"
 	"os/signal"
 	"regexp"
 	"strings"
 	"syscall"
-	"time"
-
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/pgx/v5"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
 )
 
 func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Config) error {
 	ctx, stop := signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM, syscall.SIGQUIT)
 	defer stop()
 
-	migrationCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
-	defer cancel()
+	/*migrationCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()*/
 
 	connURL := fmt.Sprintf(
-		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		"pgx://%s:%s@%s:%s/%s?sslmode=disable",
 		config.DBUser, config.DBPassword, config.DBHost, config.DBPort, config.DBName,
 	)
 
-	db, dbErr := sql.Open("pgx", connURL)
+	/*db, dbErr := sql.Open("pgx", connURL)
 	if dbErr != nil {
 		logger.Error("failed to get postgres instance",
 			"connectionURL", connURL,
@@ -59,7 +55,7 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 		return instanceErr
 	}
 
-	m, mInstanceErr := migrate.NewWithDatabaseInstance(
+	migration, mInstanceErr := migrate.NewWithDatabaseInstance(
 		"file://migrations/pgx_migrations/",
 		config.DBName,
 		instance,
@@ -69,24 +65,28 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 		return mInstanceErr
 	}
 	defer func() {
-		sourceErr, dbErr := m.Close()
+		sourceErr, dbErr := migration.Close()
 		if sourceErr != nil || dbErr != nil {
 			logger.Error("failed to close migrate instance", "sourceErr", sourceErr.Error(), "dbErr", dbErr.Error())
 		}
-	}()
+	}()*/
 
-	upErr := m.Up()
+	migration, err := migrate.New("file://migrations/pgx_migrations/", connURL)
+	if err != nil {
+		return err
+	}
+	upErr := migration.Up()
 
-	version, isDirty, err := m.Version()
+	version, isDirty, err := migration.Version()
 	if err != nil && !errors.Is(err, migrate.ErrNilVersion) {
 		logger.Error("failed to get migrate version", "error", err.Error())
 		return err
 	}
 	if isDirty {
 		logger.Warn("Attempting rollback for dirty migration", "version", version)
-		if rollbackErr := m.Steps(-1); rollbackErr != nil {
+		if rollbackErr := migration.Down(); rollbackErr != nil {
 			logger.Error("Failed to rollback migration", "error", rollbackErr.Error())
-			if forceRollbackErr := m.Force(int(version)); forceRollbackErr != nil {
+			if forceRollbackErr := migration.Force(int(version)); forceRollbackErr != nil {
 				logger.Error("Failed to force rollback", "error", forceRollbackErr.Error())
 				return forceRollbackErr
 			}
@@ -100,10 +100,12 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 				"table", re.FindStringSubmatch(upErr.Error())[1],
 				"version", version,
 			)
-			if err = m.Force(int(version)); err != nil {
+
+			if err = migration.Force(int(version)); err != nil {
 				logger.Error("failed to force migration", "error", err.Error())
 				return err
 			}
+
 			logger.Info("Force migration successful", "version", version)
 			return nil
 		} else {
@@ -111,7 +113,7 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 			return upErr
 		}
 	}
-	version, _, _ = m.Version()
+
 	if errors.Is(upErr, migrate.ErrNoChange) {
 		logger.Info("migration is up to date", "version", version, "dirty", isDirty)
 		return nil
