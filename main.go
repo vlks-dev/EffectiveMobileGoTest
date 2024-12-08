@@ -25,14 +25,16 @@ func main() {
 		"configuration", cfg)
 
 	ctx := context.Background()
-	err := migrations.RunMigrations(ctx, slog, cfg)
-	if err != nil {
-		slog.Error("migration failed", "error", err.Error())
-		return
-	}
+
 	pool, err := database.NewPostgresPool(cfg, slog, ctx)
 	if err != nil {
 		slog.Error("postgres pool failed", "error", err.Error())
+		return
+	}
+
+	err = migrations.RunMigrations(ctx, slog, pool)
+	if err != nil {
+		slog.Error("migration failed", "error", err.Error())
 		return
 	}
 

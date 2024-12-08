@@ -3,10 +3,9 @@ package migrations
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"log/slog"
 	"os"
 	"os/signal"
@@ -15,17 +14,17 @@ import (
 	"syscall"
 )
 
-func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Config) error {
+func RunMigrations(ctx context.Context, logger *slog.Logger, pool *pgxpool.Pool) error {
 	ctx, stop := signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM, syscall.SIGQUIT)
 	defer stop()
 
 	/*migrationCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()*/
 
-	connURL := fmt.Sprintf(
+	/*connURL := fmt.Sprintf(
 		"pgx://%s:%s@%s:%s/%s?sslmode=disable",
 		config.DBUser, config.DBPassword, config.DBHost, config.DBPort, config.DBName,
-	)
+	)*/
 
 	/*db, dbErr := sql.Open("pgx", connURL)
 	if dbErr != nil {
@@ -71,8 +70,9 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Conf
 		}
 	}()*/
 
-	migration, err := migrate.New("file://migrations/pgx_migrations/", connURL)
+	migration, err := migrate.New("file://migrations/pgx_migrations/", pool.Config().ConnString())
 	if err != nil {
+		logger.Warn("failed to initialize migration", "error", err)
 		return err
 	}
 	upErr := migration.Up()
