@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"log/slog"
 	"os"
@@ -69,10 +70,15 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, pool *pgxpool.Pool)
 			logger.Error("failed to close migrate instance", "sourceErr", sourceErr.Error(), "dbErr", dbErr.Error())
 		}
 	}()*/
-
+	logger.Debug("ping pgx pool connection", "error", pool.Ping(ctx))
+	_, err := pgx.Connect(ctx, pool.Config().ConnString())
+	if err != nil {
+		logger.Error("error connecting to pgx pool", "error", err.Error())
+		return err
+	}
 	migration, err := migrate.New("file://migrations/pgx_migrations/", pool.Config().ConnString())
 	if err != nil {
-		logger.Warn("failed to initialize migration", "error", err)
+		logger.Warn("failed to initialize migration", "error", err.Error())
 		return err
 	}
 	upErr := migration.Up()
