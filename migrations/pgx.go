@@ -2,32 +2,35 @@ package migrations
 
 import (
 	"context"
+	"database/sql"
 	"errors"
+	"fmt"
 	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/pgx/v5"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/vlks-dev/EffectiveMobileGoTest/utils/config"
 	"log/slog"
 	"os"
 	"os/signal"
 	"regexp"
 	"strings"
 	"syscall"
+	"time"
 )
 
-func RunMigrations(ctx context.Context, logger *slog.Logger, pool *pgxpool.Pool) error {
+func RunMigrations(ctx context.Context, logger *slog.Logger, config *config.Config) error {
 	ctx, stop := signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM, syscall.SIGQUIT)
 	defer stop()
 
-	/*migrationCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
-	defer cancel()*/
+	migrationCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
 
-	/*connURL := fmt.Sprintf(
-		"pgx://%s:%s@%s:%s/%s?sslmode=disable",
+	connURL := fmt.Sprintf(
+		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		config.DBUser, config.DBPassword, config.DBHost, config.DBPort, config.DBName,
-	)*/
+	)
 
-	/*db, dbErr := sql.Open("pgx", connURL)
+	db, dbErr := sql.Open("pgx", connURL)
 	if dbErr != nil {
 		logger.Error("failed to get postgres instance",
 			"connectionURL", connURL,
@@ -69,18 +72,8 @@ func RunMigrations(ctx context.Context, logger *slog.Logger, pool *pgxpool.Pool)
 		if sourceErr != nil || dbErr != nil {
 			logger.Error("failed to close migrate instance", "sourceErr", sourceErr.Error(), "dbErr", dbErr.Error())
 		}
-	}()*/
-	logger.Debug("ping pgx pool connection", "error", pool.Ping(ctx))
-	_, err := pgx.Connect(ctx, pool.Config().ConnString())
-	if err != nil {
-		logger.Error("error connecting to pgx pool", "error", err.Error())
-		return err
-	}
-	migration, err := migrate.New("file://migrations/pgx_migrations/", pool.Config().ConnString())
-	if err != nil {
-		logger.Warn("failed to initialize migration", "error", err.Error())
-		return err
-	}
+	}()
+
 	upErr := migration.Up()
 
 	version, isDirty, err := migration.Version()

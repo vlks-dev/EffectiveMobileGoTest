@@ -32,7 +32,7 @@ func main() {
 		return
 	}
 
-	err = migrations.RunMigrations(ctx, slog, pool)
+	err = migrations.RunMigrations(ctx, slog, cfg)
 	if err != nil {
 		slog.Error("migration failed", "error", err.Error())
 		return
