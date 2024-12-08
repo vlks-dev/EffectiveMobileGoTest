@@ -54,7 +54,6 @@ func (r *SongRepository) GetSongs(ctx context.Context, filters map[string]interf
 	query, args := queryBuilder.Build()
 
 	r.logger.Debug("Getting songs", "query", query, "filters", filters)
-	// Выполнение запроса
 	rows, err := r.pool.Query(ctx, query, args...)
 	if err != nil {
 		r.logger.Error("failed to run get query", "error", err.Error())

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -24,14 +25,16 @@ func main() {
 		"configuration", cfg)
 
 	ctx := context.Background()
-	err := migrations.RunMigrations(ctx, slog, cfg)
-	if err != nil {
-		slog.Error("migration failed", "error", err.Error())
-		return
-	}
+
 	pool, err := database.NewPostgresPool(cfg, slog, ctx)
 	if err != nil {
 		slog.Error("postgres pool failed", "error", err.Error())
+		return
+	}
+
+	err = migrations.RunMigrations(ctx, slog, cfg)
+	if err != nil {
+		slog.Error("migration failed", "error", err.Error())
 		return
 	}
 
@@ -40,8 +43,11 @@ func main() {
 	songHandler := handlers.NewSongHandler(songService)
 
 	docs.SwaggerInfo.BasePath = "/music_library/v1"
+	docs.SwaggerInfo.Host = cfg.ServerHost + ":" + cfg.ServerPort
+
 	router := gin.Default()
 	router.Use(gin.Recovery(), gin.Logger())
+
 	v1 := router.Group("/music_library/v1")
 	{
 		v1.GET("/songs", songHandler.GetSongs)
