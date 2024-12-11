@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/vlks-dev/EffectiveMobileGoTest/utils/dbutil"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -31,8 +32,18 @@ func main() {
 		slog.Error("postgres pool failed", "error", err.Error())
 		return
 	}
-
-	err = migrations.RunMigrations(ctx, slog, cfg)
+	migrationUtility := dbutil.NewMigrationUtility(cfg, slog)
+	db, err := migrationUtility.GetInstance()
+	if err != nil {
+		slog.Error("database instance failed", "error", err.Error())
+		return
+	}
+	migrate, err := migrationUtility.WithInstance(db)
+	if err != nil {
+		slog.Error("database migrate failed", "error", err.Error())
+		return
+	}
+	err = migrations.Migrator(ctx, slog, db, migrate).Run()
 	if err != nil {
 		slog.Error("migration failed", "error", err.Error())
 		return

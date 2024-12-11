@@ -8,8 +8,12 @@ type AddSong struct {
 }
 
 type Song struct {
-	Group       *string    `json:"group,omitempty"`
-	Song        *string    `json:"song,omitempty"`
+	Group *string `json:"group,omitempty"`
+	Song  *string `json:"song,omitempty"`
+	SongDetail
+}
+
+type SongDetail struct {
 	ReleaseDate *time.Time `json:"release_date,omitempty"`
 	Text        *string    `json:"text,omitempty"`
 	Link        *string    `json:"link,omitempty"`

@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"github.com/vlks-dev/EffectiveMobileGoTest/apiClient"
 	"github.com/vlks-dev/EffectiveMobileGoTest/internal/models"
 	"github.com/vlks-dev/EffectiveMobileGoTest/internal/repositories"
 	"github.com/vlks-dev/EffectiveMobileGoTest/utils/pagination"
@@ -9,7 +10,8 @@ import (
 )
 
 type SongService struct {
-	storage repositories.SongStorage
+	apiClient apiClient.APIClient
+	storage   repositories.SongStorage
 }
 
 func NewSongService(storage repositories.SongStorage) *SongService {
@@ -39,9 +41,15 @@ func (s *SongService) DeleteSong(ctx context.Context, id string) error {
 }
 
 func (s *SongService) AddSong(ctx context.Context, req models.AddSong) error {
-	return s.storage.AddSong(ctx, req)
+	songDetails, err := s.apiClient.GetSongDetails(req.Group, req.Song)
+	if err != nil {
+
+		return err
+	}
+	return s.storage.AddSong(ctx, songDetails)
 }
 
 func (s *SongService) UpdateSong(ctx context.Context, id string, song models.Song) error {
+
 	return s.storage.UpdateSong(ctx, id, song)
 }

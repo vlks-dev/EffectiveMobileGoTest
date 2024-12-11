@@ -26,7 +26,7 @@ type SongStorage interface {
 	GetSongs(ctx context.Context, filters map[string]interface{}, page, limit string) ([]models.Song, error)
 	GetSongText(ctx context.Context, id string) (string, error)
 	DeleteSong(ctx context.Context, id string) error
-	AddSong(ctx context.Context, req models.AddSong) error
+	AddSong(ctx context.Context, req *models.Song) error
 	UpdateSong(ctx context.Context, id string, song models.Song) error
 }
 
@@ -118,7 +118,7 @@ func (r *SongRepository) DeleteSong(ctx context.Context, id string) error {
 }
 
 // AddSong Добавление новой песни
-func (r *SongRepository) AddSong(ctx context.Context, req models.AddSong) error {
+func (r *SongRepository) AddSong(ctx context.Context, req *models.Song) error {
 	_, err := r.pool.Exec(ctx, `
 		INSERT INTO songs (group_name, song_name)
 		VALUES ($1, $2)`,
